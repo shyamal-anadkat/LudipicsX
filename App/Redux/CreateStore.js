@@ -1,4 +1,5 @@
 import { createStore, applyMiddleware, compose } from 'redux'
+import devToolsEnhancer from 'remote-redux-devtools'
 import { autoRehydrate } from 'redux-persist'
 import Config from '../Config/DebugConfig'
 import createSagaMiddleware from 'redux-saga'
@@ -21,6 +22,7 @@ export default (rootReducer, rootSaga) => {
   /* ------------- Assemble Middleware ------------- */
 
   enhancers.push(applyMiddleware(...middleware))
+  enhancers.push(devToolsEnhancer())
 
   /* ------------- AutoRehydrate Enhancer ------------- */
 

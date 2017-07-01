@@ -18,7 +18,8 @@ class LoginScreen extends React.Component {
   static propTypes = {
     dispatch: PropTypes.func,
     fetching: PropTypes.bool,
-    attemptLogin: PropTypes.func
+    attemptLogin: PropTypes.func,
+    currentUser: PropTypes.func
   }
 
   isAttempting = false
@@ -28,8 +29,8 @@ class LoginScreen extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      username: 'reactnative@infinite.red',
-      password: 'password',
+      username: '',
+      password: '',
       visibleHeight: Metrics.screenHeight,
       topLogo: { width: Metrics.screenWidth }
     }
@@ -76,6 +77,7 @@ class LoginScreen extends React.Component {
   }
 
   handlePressLogin = () => {
+    this.props.currentUser()
     const { username, password } = this.state
     this.isAttempting = true
     // attempt a login - a saga is listening to pick it up from here.
@@ -161,7 +163,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    attemptLogin: (username, password) => dispatch(LoginActions.loginRequest(username, password))
+    attemptLogin: (username, password) => dispatch(LoginActions.loginRequest(username, password)),
+    currentUser: () => dispatch(LoginActions.currentUser())
   }
 }
 

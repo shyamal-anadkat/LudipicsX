@@ -67,6 +67,7 @@
     "reactotron-react-native": "^1.11.1",
     "reactotron-redux": "^1.11.1",
     "reactotron-redux-saga": "^1.11.1",
+    "remote-redux-devtools": "^0.5.11",
     "snazzy": "^7.0.0",
     "standard": "10.0.2"
   },

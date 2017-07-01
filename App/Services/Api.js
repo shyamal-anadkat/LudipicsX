@@ -2,7 +2,7 @@
 import apisauce from 'apisauce'
 
 // our "constructor"
-const create = (baseURL = 'https://api.github.com/') => {
+const create = (baseURL = 'http://api.ludipics.com:3000/') => {
   // ------
   // STEP 1
   // ------
@@ -14,7 +14,8 @@ const create = (baseURL = 'https://api.github.com/') => {
     baseURL,
     // here are some default headers
     headers: {
-      'Cache-Control': 'no-cache'
+      'Cache-Control': 'no-cache',
+      'X-CSRF-TOKEN': 'gAV3UDxr-tpRgBS21PAWvtFu6RDhTuyD-tPg'
     },
     // 10 second timeout...
     timeout: 10000
@@ -37,6 +38,8 @@ const create = (baseURL = 'https://api.github.com/') => {
   const getRoot = () => api.get('')
   const getRate = () => api.get('rate_limit')
   const getUser = (username) => api.get('search/users', {q: username})
+  const currentUser = () => api.get('api/current-user')
+  const login = (username, password) => api.post('api/login', {'username': username, 'password': password})
 
   // ------
   // STEP 3
@@ -54,7 +57,9 @@ const create = (baseURL = 'https://api.github.com/') => {
     // a list of the API functions from step 2
     getRoot,
     getRate,
-    getUser
+    getUser,
+    currentUser,
+    login
   }
 }
 
