@@ -28,6 +28,7 @@ class LoginScreen extends React.Component {
 
   constructor (props) {
     super(props)
+    this.props.currentUser()
     this.state = {
       username: '',
       password: '',
@@ -77,7 +78,6 @@ class LoginScreen extends React.Component {
   }
 
   handlePressLogin = () => {
-    this.props.currentUser()
     const { username, password } = this.state
     this.isAttempting = true
     // attempt a login - a saga is listening to pick it up from here.

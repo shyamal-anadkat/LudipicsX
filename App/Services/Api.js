@@ -14,8 +14,7 @@ const create = (baseURL = 'http://api.ludipics.com:3000/') => {
     baseURL,
     // here are some default headers
     headers: {
-      'Cache-Control': 'no-cache',
-      'X-CSRF-TOKEN': 'gAV3UDxr-tpRgBS21PAWvtFu6RDhTuyD-tPg'
+      'Cache-Control': 'no-cache'
     },
     // 10 second timeout...
     timeout: 10000
@@ -41,6 +40,7 @@ const create = (baseURL = 'http://api.ludipics.com:3000/') => {
   const currentUser = () => api.get('api/current-user')
   const login = (username, password) => api.post('api/login', {'username': username, 'password': password})
 
+  const updateHeader = (key, value) => api.setHeader(key, value)
   // ------
   // STEP 3
   // ------
@@ -59,7 +59,8 @@ const create = (baseURL = 'http://api.ludipics.com:3000/') => {
     getRate,
     getUser,
     currentUser,
-    login
+    login,
+    updateHeader
   }
 }
 
