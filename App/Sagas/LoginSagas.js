@@ -3,6 +3,7 @@ import { Alert } from 'react-native'
 import LoginActions from '../Redux/LoginRedux'
 import setCookie from 'set-cookie-parser'
 
+// TODO: Set current user if they are already signed in
 export function * currentUser (api) {
   const response = yield call(api.currentUser)
   api.updateHeader('X-CSRF-TOKEN', setCookie.parse(response)[0].value)

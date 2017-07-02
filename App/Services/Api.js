@@ -38,9 +38,36 @@ const create = (baseURL = 'http://api.ludipics.com:3000/') => {
   const getRate = () => api.get('rate_limit')
   const getUser = (username) => api.get('search/users', {q: username})
   const currentUser = () => api.get('api/current-user')
+  const signup = (username, email, password) => api.post('api/signup', {'username': username, 'email': email, 'password': password})
   const login = (username, password) => api.post('api/login', {'username': username, 'password': password})
+  const logout = () => api.post('api/logout')
 
+  // Non-Auth Calls
+
+  const ludiCategories = (filters = {}) => api.get('api/ludiCategories', filters)
+  const ludiCategory = (id) => api.get('api/ludiCategories/' + id)
+  const ludiGroups = (filters = {}) => api.get('api/ludiGroups', filters)
+  const ludiGroup = (id) => api.get('api/ludiGroups/' + id)
+  const dailies = (filters = {}) => api.get('api/dailies', filters)
+  const daily = (id) => api.get('api/dailies/' + id)
+  const stories = (filters = {}) => api.get('api/stories', filters)
+  const story = (id) => api.get('api/stories/' + id)
+  const posts = (filters) => api.get('api/posts', filters)
+  const post = (id) => api.get('api/posts/' + id)
+  const user = (id) => api.get('api/users/' + id)
+
+  // Auth Calls
+
+  const placeUserInLudiCategory = (ludiCategoryID) => api.post('api/auth/ludiCategories', {'ludiCategory': {'id': ludiCategoryID}})
+  const makeNewStory = (ludiGroupID) => api.post('api/auth/stories', {'ludiGroup': {'id': ludiGroupID}})
+  const deleteStory = (storyID) => api.delete('api/auth/stories/' + storyID)
+  // TODO: /api/auth/posts
+  const deletePost = (postID) => api.delete('api/auth/posts/' + postID)
+  const upvotePost = (postID) => api.post('api/auth/upvote', {'id': postID})
+
+  // Updating Headers (token management)
   const updateHeader = (key, value) => api.setHeader(key, value)
+  const updateHeaders = (dict) => api.setHeaders(dict)
   // ------
   // STEP 3
   // ------
@@ -59,8 +86,27 @@ const create = (baseURL = 'http://api.ludipics.com:3000/') => {
     getRate,
     getUser,
     currentUser,
+    signup,
     login,
-    updateHeader
+    logout,
+    ludiCategories,
+    ludiCategory,
+    ludiGroups,
+    ludiGroup,
+    dailies,
+    daily,
+    stories,
+    story,
+    posts,
+    post,
+    user,
+    placeUserInLudiCategory,
+    makeNewStory,
+    deleteStory,
+    deletePost,
+    upvotePost,
+    updateHeader,
+    updateHeaders
   }
 }
 
