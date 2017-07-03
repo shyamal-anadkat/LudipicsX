@@ -79,9 +79,13 @@ class LoginScreen extends React.Component {
 
   handlePressLogin = () => {
     const { username, password } = this.state
+    const { navigate } = this.props.navigation
     this.isAttempting = true
     // attempt a login - a saga is listening to pick it up from here.
     this.props.attemptLogin(username, password)
+
+    // TODO: Do this better
+    navigate('MainScreen')
   }
 
   handleChangeUsername = (text) => {

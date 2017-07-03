@@ -7,11 +7,13 @@ import DebugConfig from '../Config/DebugConfig'
 
 import { StartupTypes } from '../Redux/StartupRedux'
 import { LoginTypes } from '../Redux/LoginRedux'
+import { GroupTypes } from '../Redux/GroupRedux'
 
 /* ------------- Sagas ------------- */
 
 import { startup } from './StartupSagas'
 import { login, currentUser } from './LoginSagas'
+import { getDailyForDate } from './GroupSagas'
 
 /* ------------- API ------------- */
 
@@ -23,11 +25,9 @@ const api = DebugConfig.useFixtures ? FixtureAPI : API.create()
 
 export default function * root () {
   yield [
-    // some sagas only receive an action
     takeLatest(StartupTypes.STARTUP, startup),
-
-    // some sagas receive extra parameters in addition to an action
     takeLatest(LoginTypes.LOGIN_REQUEST, login, api),
-    takeLatest(LoginTypes.CURRENT_USER, currentUser, api)
+    takeLatest(LoginTypes.CURRENT_USER, currentUser, api),
+    takeLatest(GroupTypes.REQUEST_DAILY, getDailyForDate, api)
   ]
 }
